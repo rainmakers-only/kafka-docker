@@ -8,9 +8,12 @@ services:
     build: .
     ports:
       - "9092:9092"
+    mem_limit: 2g
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
-      KAFKA_CREATE_TOPICS: "test:1:1"
+      # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      # KAFKA_ADVERTISED_HOST_NAME: 192.168.1.86
+      KAFKA_ADVERTISED_HOST_NAME: ${DOCKER_HOST_IP}
+      KAFKA_CREATE_TOPICS: "local.tracking.requisition-candidate.state-changed:1:1,local.tracking.cohort-candidate.created:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
